@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HA-RA</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <meta name="view-transition" content="same-origin" /> 
+  <meta name="description" content="منصة HAZEM ELZOZ التعليمية. مذكرات، فيديوهات، واختبارات المرحلة الثانوية.">
+  <meta name="theme-color" content="#007bff"> 
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+
+    <div id="refreshLoader" class="full-screen-loader">
+        <div class="loader-content">
+            <img src="img/alien.gif" alt="جاري التحميل" style="width: 120px; height: 120px; border-radius: 50%;">
+            <p style="color: var(--text-light); margin-top: 15px;">جاري تحميل أكوان العلم...</p>
+        </div>
+    </div>
+  
+    <div class="container" id="mainContainer" style="display: none;">
+    
+        <header>
+            <div class="brand">
+                <div class="slider">
+                    <img src="elzoz1.jpg" class="slide active" alt="صورة 1">
+                    <img src="elzoz2.jpg" class="slide" alt="صورة 2">
+                    <img src="elzozo3.jpg" class="slide" alt="صورة 3">
+                </div>
+                <div>
+                    <h1 style="view-transition-name: header-title;">ELZOZ</h1>
+                    <p class="lead">أهلاً بك</p>
+                </div>
+            </div>
+            
+            <nav class="taskbar-nav">
+                <a href="#home" class="nav-link active" id="navHome"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="#about" class="nav-link" id="navAbout"><i class="fas fa-info-circle"></i> تواصل </a>
+                <a href="#login" class="nav-link" id="navLogin"><i class="fas fa-sign-in-alt"></i> تسجيل دخول</a>
+            </nav>
+
+            <div class="controls-group">
+                <a href="#profile" class="icon-btn" id="navProfile" title="ملفي الشخصي" style="display: none;">
+                    <i class="fas fa-user-circle"></i>
+                </a>
+                <button class="icon-btn" id="modeToggle" aria-label="تبديل الوضع الليلي/النهاري" title="الوضع">
+                    <i class="fas fa-moon"></i> 
+                </button>
+                <button class="icon-btn" id="openSettingsModal" title="الإعدادات">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button class="icon-btn" id="installBtn" style="display:none;" title="تثبيت التطبيق">
+                    <i class="fas fa-download"></i>
+                </button> 
+            </div>
+        </header>
+        
+        <div id="homePage" class="content-view" style="display: block;">
+            
+            <section class="search-container">
+                <input type="text" id="searchBox" placeholder="البحث في الأقسام والمذكرات...">
+            </section>
+
+            <div class="no-results" id="noResultsMessage" style="display: none;">
+                <p>عذراً، لم يتم العثور على نتائج للبحث عن: "<strong id="searchTermDisplay"></strong>"</p>
+            </div>
+
+            <div class="loader-container" id="initialLoader" style="display: none;">
+                <div class="spinner"></div>
+                <p>جاري تحميل البيانات...</p>
+            </div>
+
+            <div class="no-results" id="errorState" style="display: none;">
+                <p><i class="fas fa-exclamation-triangle"></i> حدث خطأ أثناء تحميل البيانات.</p>
+            </div>
+            
+            <section class="grid" id="buttonsGrid">
+                </section>
+
+            <div class="rating-container card" style="text-align: center; margin-top: 30px;">
+                <p><strong>ما هو تقييمك للمنصة؟</strong></p>
+                <div class="stars-rating" id="starRating" role="radiogroup" aria-label="تقييم المنصة بخمس نجوم">
+                    <span class="star fas fa-star" data-value="5" tabindex="0" role="radio" aria-checked="false"></span>
+                    <span class="star fas fa-star" data-value="4" tabindex="0" role="radio" aria-checked="false"></span>
+                    <span class="star fas fa-star" data-value="3" tabindex="0" role="radio" aria-checked="false"></span>
+                    <span class="star fas fa-star" data-value="2" tabindex="0" role="radio" aria-checked="false"></span>
+                    <span class="star fas fa-star" data-value="1" tabindex="0" role="radio" aria-checked="false"></span>
+                </div>
+            </div>
+
+            <div class="comments-section card" style="margin-top: 30px;">
+                <h2 style="color: var(--accent-secondary);"><i class="fas fa-comments"></i> تعليقات الطلاب</h2>
+                
+                <div class="comment-input-area">
+                    <textarea id="commentText" placeholder="اكتب تعليقك هنا..." rows="3"></textarea>
+                    <button class="icon-btn primary-action-btn" id="postCommentBtn" style="margin-top: 10px; width: 100%;">
+                        <i class="fas fa-paper-plane"></i> نشر التعليق
+                    </button>
+                    <p id="authPrompt" style="font-size: 13px; color: #ff5252; margin-top: 10px;">* يجب تسجيل الدخول للتعليق</p>
+                </div>
+
+                <div class="comments-list-container">
+                    <div class="comments-slider" id="commentsSlider">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="aboutPage" class="content-view card" style="display: none; padding: 30px;">
+            <h2 style="color: var(--accent-primary);"><i class="fas fa-info-circle"></i> عن المنصة</h2>
+            <div class="profile-header">
+                <img src="img/elzoz1.jpg" alt="صورتك">
+                <div>
+                    <h3>HAZEM ELZOZ</h3>
+                    <p class="brag">تبص عالمستوي تلاقي في نفسنا<br> اوريجنال بس النسخ تلاقي فيه بالهبل الزوز بينكو اختلف عشان دماغو دهب 😜</p>
+                </div>
+            </div>
+            <p style="margin-top: 25px; font-weight: bold; font-size: 18px;">المنصة مخصصة لـ:</p>
+            <div class="specialty-tags">
+                <span class="specialty-tag">المرحلة الثانوية</span>
+                <span class="specialty-tag">جميع المواد</span>
+                <span class="specialty-tag">مذكرات رقمية</span>
+            </div>
+            <p style="margin-top: 25px; font-weight: bold; font-size: 18px;">للتواصل أو الاستفسار:</p>
+            <div class="contact-links">
+                <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> واتساب</a>
+                <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i> فيسبوك</a>
+            </div>
+        </div>
+
+        <div id="loginPage" class="content-view full-screen-page" style="display: none;">
+            
+            <video autoplay muted loop id="loginVideoBg" class="page-video-bg" playsinline>
+                <source src="img/login_bg_video.mp4" type="video/mp4">
+                متصفحك لا يدعم عنصر الفيديو.
+            </video>
+
+            <div class="auth-card card">
+                <h2 style="color: var(--accent-primary);"><i class="fas fa-user-circle"></i> تسجيل الدخول أو إنشاء حساب</h2>
+                
+                <div id="loginForm" style="display: block;">
+                    <input type="email" id="studentEmail" placeholder="البريد الإلكتروني" required>
+                    <input type="password" id="studentPassword" placeholder="كلمة السر" required>
+                    <button class="icon-btn" id="studentLoginBtn" style="width: 100%; background: #4caf50; border-color: #4caf50; margin-bottom: 10px;">
+                        <i class="fas fa-sign-in-alt"></i> دخول
+                    </button>
+                    <button class="icon-btn" id="showRegisterForm" style="width: 100%; background: var(--accent-secondary); border-color: var(--accent-secondary);">
+                        <i class="fas fa-user-plus"></i> تسجيل جديد
+                    </button>
+                </div>
+
+                <div id="registerForm" style="display: none;">
+                    <input type="text" id="regName" placeholder="الاسم الكامل" required>
+                    <input type="email" id="regEmail" placeholder="البريد الإلكتروني" required>
+                    <input type="password" id="regPassword" placeholder="كلمة السر" required>
+                    <input type="tel" id="regPhone" placeholder="رقم الهاتف (مطلوب)">
+                    
+                    <label for="regProfilePic" class="file-upload-label">
+                        <i class="fas fa-camera"></i> <span id="picLabelText">اختر صورة الملف الشخصي</span>
+                    </label>
+                    <input type="file" id="regProfilePic" accept="image/*" style="display:none;">
+
+                    <button class="icon-btn" id="studentRegisterBtn" style="width: 100%; background: var(--accent-primary); border-color: var(--accent-primary); margin-top: 15px;">
+                        <i class="fas fa-user-plus"></i> إتمام التسجيل
+                    </button>
+                    <button class="icon-btn" id="showLoginForm" style="width: 100%; margin-top: 10px;">
+                        &larr; العودة لتسجيل الدخول
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="profilePage" class="content-view card" style="display: none;">
+            <h2 style="color: var(--accent-primary);"><i class="fas fa-user-circle"></i> ملفي الشخصي</h2>
+            <div class="user-info-display">
+                <img id="profilePicDisplay" src="img/default-profile.png" alt="صورة المستخدم" class="profile-pic-large">
+                <h3 id="profileNameDisplay">اسم المستخدم</h3>
+                <p><i class="fas fa-envelope"></i> البريد: <span id="profileEmailDisplay">user@example.com</span></p>
+                <p><i class="fas fa-phone"></i> الهاتف: <span id="profilePhoneDisplay">غير مسجل</span></p>
+                <p style="font-weight: bold; margin-top: 15px;"><i class="fas fa-tasks"></i> التقدم: <span id="progressPercentage">0%</span></p>
+            </div>
+            
+            <button class="icon-btn" id="logoutBtn" style="width: 100%; background: #ff5252; border-color: #ff5252; margin-top: 25px;">
+                <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+            </button>
+        </div>
+        
+        <main class="card content-display" id="contentDisplay" style="display:none;">
+            <div class="content-header-controls">
+                <button class="icon-btn" id="backToGrid">&larr; رجوع للأقسام</button>
+                <button class="icon-btn" id="markCompleteBtn" data-section-id="">
+                    <i class="far fa-check-circle"></i> تم الانتهاء من هذا القسم
+                </button>
+            </div>
+            
+            <h2 id="displayTitle" style="view-transition-name: section-title;"></h2>
+            <hr style="border-color: var(--border-subtle); margin-top: 20px;">
+
+            <div class="loader-container" id="contentLoader" style="display: none;">
+                <div class="spinner"></div>
+                <p>جاري تحميل محتوى القسم...</p>
+            </div>
+
+            <div id="actualContent">
+                <div class="content-section">
+                    <h3>محتوى الدرس النصي</h3>
+                    <div id="displayMemoContent" class="memo-content"></div>
+                </div>
+
+                <div class="content-section" style="margin-top: 30px;">
+                    <h3>شروحات الفيديو والمراجعات</h3>
+                    <div id="displayVideos" class="video-container"></div>
+                </div>
+                
+                <div class="content-section" style="margin-top: 30px;">
+                    <h3>اختبارات تقييمية (للتدريب)</h3>
+                    <div id="displayQuizzes"></div>
+                </div>
+                
+                <div class="content-section" style="margin-top: 30px;">
+                    <h3>المذكرات والملازم القابلة للتحميل</h3>
+                    <div id="displayDownloads" class="downloads-container"></div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>عـامـل قـلـق لٱێ حــد ٱتـخـلـق</footer>
+    </div>
+
+    <div class="modal" id="settingsModal">
+        <button class="close-btn" id="closeSettingsModal">&times;</button>
+        <div class="modal-card">
+            <h2 style="color: var(--accent-secondary);"><i class="fas fa-cog"></i> إعدادات الواجهة</h2>
+            <div class="color-picker-container">
+                <p><strong>تخصيص لون الثيم الأساسي:</strong></p>
+                <div class="colors-list" id="colorPickerList">
+                    </div>
+            </div>
+            <div style="margin-top: 20px; text-align: center;">
+                <button class="icon-btn" id="subscribePush" style="background: var(--accent-secondary); border-color: var(--accent-secondary); width: 100%;">
+                    <i class="fas fa-bell"></i> تفعيل الإشعارات
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <button class="floating-btn" id="floatingButton" title="العودة لأعلى الصفحة" style="display: none;">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <div id="snackbar" class="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
