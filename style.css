@@ -1,0 +1,780 @@
+/*
+ * تصميم حديث وأنيق (Modern & Sleek Design)
+ * التركيز على التباين، الظلال، وتأثيرات التمرير.
+ */
+
+/* المتغيرات الأساسية (الوضع الداكن افتراضياً) */
+:root {
+    --bg-dark: #07080d;
+    --card-dark: #12141c; /* خلفية البطاقات داكنة جداً للعمق */
+    --accent-primary: #00e676; /* أخضر نيون (حسب اختيارك) */
+    --accent-secondary: #7c4dff; /* بنفسجي فاتح (حسب اختيارك) */
+    --text-light: #e0e0e0;
+    --shadow-deep: rgba(0, 0, 0, 0.6); 
+    --shadow-soft: rgba(0, 0, 0, 0.3);
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --header-bg: rgba(7, 8, 13, 0.95); /* خلفية الهيدر الشفافة */
+}
+
+/* ======================================= */
+/* ====== Light Mode Variables Override ====== */
+/* ======================================= */
+.light-mode {
+    --bg-dark: #f0f0f0;         
+    --card-dark: #ffffff;       
+    --accent-secondary: #ff9800; 
+    --text-light: #333333;      
+    --shadow-deep: rgba(0, 0, 0, 0.2);
+    --shadow-soft: rgba(0, 0, 0, 0.1);
+    --border-subtle: rgba(0, 0, 0, 0.15);
+    --header-bg: rgba(240, 240, 240, 0.95); /* خلفية الهيدر الشفافة للوضع النهاري */
+}
+
+/* ======================================= */
+/* ====== GENERAL STYLES & LAYOUT ====== */
+/* ======================================= */
+* {
+    box-sizing: border-box;
+    font-family: 'Droid Arabic Kufi', 'Tahoma', sans-serif;
+}
+body {
+    margin: 0;
+    /* إزاحة علوية لإفساح مجال للهيدر الثابت */
+    padding-top: 80px; 
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    transition: background-color 0.3s, color 0.3s;
+    min-height: 100vh;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px 15px; 
+}
+.content-view {
+    padding: 15px 0;
+}
+.card {
+    background-color: var(--card-dark);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 15px var(--shadow-deep);
+    margin-bottom: 25px;
+}
+footer {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 12px;
+    opacity: 0.6;
+    border-top: 1px solid var(--border-subtle);
+}
+
+/* ======================================= */
+/* ====== FIXED SEMI-TRANSPARENT HEADER ====== */
+/* ======================================= */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 950;
+    /* تأكد من أن الهيدر يستخدم Flexbox للتنظيم */
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: var(--header-bg);
+    backdrop-filter: blur(5px);
+    border-bottom: 1px solid var(--border-subtle);
+    gap: 15px;
+    transition: background-color 0.3s;
+}
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* زيادة الـ z-index للشعار (إن لزم الأمر) */
+    z-index: 960; 
+}
+.brand h1 {
+    font-size: 24px;
+    margin: 0;
+    color: var(--text-light);
+}
+.brand .lead {
+    font-size: 12px;
+    margin: 0;
+    opacity: 0.7;
+}
+/* Slider (لتحريك الصورة بشكل دائري) */
+.brand .slider {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid var(--accent-primary);
+}
+.brand .slide {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.5s;
+    object-fit: cover;
+}
+.brand .slide.active {
+    opacity: 1;
+}
+
+/* شريط المهام (Navbar) */
+.taskbar-nav {
+    /* زيادة الـ z-index لشريط التنقل داخل الهيدر */
+    z-index: 960; 
+    display: flex;
+    gap: 15px;
+    /* لتوسيط شريط المهام في المنتصف */
+    margin: 0 auto; 
+}
+.taskbar-nav .nav-link {
+    text-decoration: none;
+    color: var(--text-light);
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background-color 0.2s, color 0.2s;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.taskbar-nav .nav-link:hover {
+    background-color: var(--border-subtle);
+}
+.taskbar-nav .nav-link.active {
+    background-color: var(--accent-primary);
+    color: var(--card-dark);
+}
+.taskbar-nav .nav-link.active:hover {
+    background-color: var(--accent-primary);
+}
+.controls-group {
+    display: flex;
+    gap: 10px;
+}
+
+
+/* ======================================= */
+/* ====== LOGIN PAGE (FULL SCREEN WITH VIDEO) ====== */
+/* ======================================= */
+/* ... داخل section (LOGIN PAGE) ... */
+.full-screen-page {
+    position: fixed;
+    /* ابدأ من أسفل الهيدر */
+    top: 80px; 
+    left: 0;
+    width: 100%;
+    /* استخدم calc لحساب الارتفاع المتبقي */
+    height: calc(100% - 80px); 
+    /* خفض قيمة الـ z-index لضمان ظهور الهيدر فوقها */
+    z-index: 940; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-dark); 
+}
+
+/* تعديل مهم للموبايل: يجب أن تتطابق قيمة الـ top مع الـ padding-top في الـ body */
+@media (max-width: 768px) {
+    /* يجب أن تكون متطابقة مع body padding-top: 120px; */
+    .full-screen-page {
+        top: 120px; 
+        height: calc(100% - 120px); 
+    }
+}
+/* تنسيق عنصر الفيديو كخلفية */
+.page-video-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* تقنية لملء الشاشة مع الحفاظ على الأبعاد (Cover) */
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 1; 
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    filter: brightness(0.6) blur(3px); /* تغميق وتنعيم الخلفية لزيادة وضوح النص */
+}
+
+.auth-card {
+    z-index: 10;
+    position: relative;
+    max-width: 400px;
+    width: 90%;
+    /* خلفية البطاقة شبه شفافة لرؤية تأثير الخلفية */
+    background-color: rgba(18, 20, 28, 0.9); 
+    padding: 30px;
+    box-shadow: 0 10px 30px var(--shadow-deep);
+}
+.light-mode .auth-card {
+    background-color: rgba(255, 255, 255, 0.95);
+}
+.auth-card input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-dark); /* أغمق قليلاً من البطاقة */
+    color: var(--text-light);
+    font-size: 16px;
+    transition: border-color 0.2s;
+}
+.auth-card input:focus {
+    border-color: var(--accent-primary);
+}
+
+.file-upload-label {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: 2px dashed var(--accent-secondary);
+    background: var(--bg-dark);
+    color: var(--text-light);
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.2s, color 0.2s;
+}
+.file-upload-label:hover {
+    background: var(--accent-secondary);
+    color: var(--bg-dark);
+}
+
+
+/* ======================================= */
+/* ====== REFRESH/INITIAL LOADER (ALIEN) ====== */
+/* ======================================= */
+.full-screen-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-dark); 
+    z-index: 10000; /* أعلى من الكل */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.5s;
+    text-align: center;
+}
+.full-screen-loader.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+.loader-content img {
+    /* الحركة الاحترافية لرجل الفضاء */
+    animation: bounce 1.5s infinite;
+}
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+    40% {transform: translateY(-20px);}
+    60% {transform: translateY(-10px);}
+}
+
+
+/* ======================================= */
+/* ====== COMMENTS SYSTEM STYLES ====== */
+/* ======================================= */
+.comment-input-area textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-dark);
+    color: var(--text-light);
+    resize: vertical;
+}
+
+/* تنسيق السلايدر للتعليقات */
+.comments-list-container {
+    margin-top: 25px;
+    overflow: hidden; 
+}
+.comments-slider {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto; /* لجعلها قابلة للتمرير يدوياً */
+    scroll-snap-type: x mandatory; 
+    padding-bottom: 10px;
+}
+/* إخفاء شريط التمرير الأفقي */
+.comments-slider::-webkit-scrollbar {
+    display: none;
+}
+.comments-slider {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.comment-card {
+    min-width: 90%; /* عرض التعليق الواحد */
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    padding: 15px;
+    border-radius: 10px;
+    background: var(--bg-dark);
+    box-shadow: 0 2px 10px var(--shadow-soft);
+    position: relative;
+    border-right: 3px solid var(--accent-primary);
+}
+.comment-card.admin-view {
+    border-right: 3px solid #ff5252;
+}
+.comment-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px dotted var(--border-subtle);
+}
+.comment-header img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.comment-header strong {
+    color: var(--accent-primary);
+    font-size: 14px;
+}
+.comment-header span {
+    font-size: 12px;
+    opacity: 0.6;
+    margin-right: auto;
+}
+.comment-body p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+}
+.delete-comment-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #ff5252;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 8px;
+    cursor: pointer;
+    font-size: 12px;
+    display: none; 
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+.delete-comment-btn:hover {
+    opacity: 1;
+}
+
+/* ======================================= */
+/* ====== PROFILE PAGE STYLES ====== */
+/* ======================================= */
+.profile-pic-large {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--accent-secondary);
+    margin-bottom: 15px;
+}
+.user-info-display {
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-subtle);
+    margin-bottom: 20px;
+}
+.user-info-display h3 {
+    color: var(--accent-primary);
+    font-size: 24px;
+    margin-top: 0;
+}
+.user-info-display p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 16px;
+    opacity: 0.8;
+}
+
+/* ======================================= */
+/* ====== باقي التنسيقات الهامة ====== */
+/* ======================================= */
+
+.icon-btn {
+    background: var(--accent-primary);
+    color: var(--card-dark); /* أبيض على الخلفية النيون */
+    border: 1px solid var(--accent-primary);
+    border-radius: 8px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: opacity 0.2s, background-color 0.2s;
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+.icon-btn:hover {
+    opacity: 0.9;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+    padding-top: 15px;
+}
+.btn {
+    background-color: var(--card-dark);
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, border 0.2s;
+    box-shadow: 0 4px 10px var(--shadow-soft);
+    border: 2px solid transparent; 
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.btn:hover, .btn:focus {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px var(--shadow-deep);
+    border: 2px solid var(--accent-primary);
+}
+.btn .title {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--accent-primary);
+}
+.btn .sub {
+    font-size: 12px;
+    opacity: 0.7;
+    margin-top: 5px;
+}
+.btn.completed {
+    border: 2px solid #4caf50; 
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+}
+.btn.completed .title {
+    color: #4caf50;
+}
+
+/* Rating */
+.stars-rating {
+    direction: ltr; /* نجوم من اليسار لليمين */
+    display: inline-block;
+    font-size: 28px;
+    color: #ffd700;
+}
+.stars-rating .star {
+    cursor: pointer;
+    opacity: 0.3;
+    transition: opacity 0.2s;
+}
+.stars-rating .star:hover,
+.stars-rating .star:hover ~ .star,
+.stars-rating .star.active,
+.stars-rating .star.active ~ .star {
+    opacity: 1;
+}
+
+/* Content Display */
+.content-header-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.content-display {
+    transition: opacity 0.3s;
+}
+.content-display h3 {
+    color: var(--accent-secondary);
+    border-right: 4px solid var(--accent-secondary);
+    padding-right: 10px;
+    margin-top: 35px;
+}
+.memo-content blockquote {
+    border-right: 5px solid var(--accent-primary);
+    padding-right: 15px;
+    margin: 15px 0;
+    opacity: 0.8;
+    font-style: italic;
+}
+.memo-content ul {
+    list-style-type: none;
+    padding-right: 0;
+}
+.memo-content li {
+    position: relative;
+    padding-right: 20px;
+    margin-bottom: 8px;
+}
+.memo-content li::before {
+    content: "\f058"; 
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: #4caf50;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+/* Videos */
+.video-responsive {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #000;
+}
+.video-responsive iframe,
+.video-responsive .video-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+.video-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #000;
+}
+.play-icon {
+    position: absolute;
+    font-size: 50px;
+    color: white;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+}
+.video-placeholder:hover .play-icon {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Quizzes & Downloads */
+.quiz-link-btn, .download-link-btn {
+    display: block;
+    background-color: var(--bg-dark);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+}
+.quiz-link-btn:hover, .download-link-btn:hover {
+    background-color: var(--accent-primary);
+    color: var(--bg-dark);
+}
+.quiz-link-btn.link-error, .download-link-btn.link-error {
+    background-color: #ff5252;
+    color: white;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Search */
+.search-container {
+    margin-bottom: 20px;
+}
+#searchBox {
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border-subtle);
+    background: var(--card-dark);
+    color: var(--text-light);
+    font-size: 16px;
+    box-shadow: 0 2px 10px var(--shadow-soft);
+}
+.no-results {
+    padding: 20px;
+    text-align: center;
+    background-color: var(--card-dark);
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+/* Floating Button */
+.floating-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    z-index: 500;
+    box-shadow: 0 4px 10px var(--shadow-deep);
+    border: none;
+    display: none;
+}
+
+/* ======================================= */
+/* ============== MODAL (SETTINGS) & TOAST ============== */
+/* ======================================= */
+.modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.85);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s;
+    z-index: 1000;
+}
+.modal.show {
+    visibility: visible;
+    opacity: 1;
+}
+.modal-card {
+    position: relative;
+    width: 90%;
+    max-width: 450px;
+    background: var(--card-dark);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 50px 100px var(--shadow-deep);
+    border: 2px solid var(--accent-primary);
+    animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+}
+@keyframes scaleIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: transparent;
+    color: var(--text-light);
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+.close-btn:hover {
+    opacity: 1;
+}
+
+.color-picker-container {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-subtle);
+}
+.colors-list {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+.color-picker-item {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: border-color 0.2s, transform 0.2s;
+}
+.color-picker-item.active {
+    border-color: var(--text-light);
+    transform: scale(1.1);
+}
+.color-picker-item:hover {
+    transform: scale(1.1);
+}
+
+.toast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: var(--card-dark);
+    color: var(--text-light);
+    text-align: center;
+    border-radius: 8px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1050;
+    right: 30px;
+    bottom: 30px;
+    font-size: 14px;
+    box-shadow: 0 5px 15px var(--shadow-deep);
+    border: 1px solid var(--accent-primary);
+}
+.toast.show {
+    visibility: visible;
+    animation: fadein 0.5s, fadeout 0.5s 4.5s;
+}
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+}
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    /* زيادة الإزاحة للهيدر */
+    body { padding-top: 120px; } 
+    header {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px;
+    }
+    /* جعل شريط المهام في سطر جديد أسفل الشعار */
+    .taskbar-nav {
+        order: 3; 
+        margin-top: 10px;
+        border-top: 1px solid var(--border-subtle);
+        padding-top: 10px;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+    .taskbar-nav .nav-link {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+    .controls-group {
+        justify-content: flex-start;
+    }
+    .auth-card {
+        margin-top: 20%; 
+    }
+    /* جعل التعليق الواحد يملأ الشاشة تقريباً */
+    .comment-card {
+        min-width: 95%;
+    }
+}

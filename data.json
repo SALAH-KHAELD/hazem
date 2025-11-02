@@ -1,0 +1,87 @@
+[
+  {
+    "id": "sec_english",
+    "title": "قسم الانجليزي",
+    "content": "**مذكرة اللغة الإنجليزية (ترم أول)**\n\n* **الوحدة الأولى:** القواعد الزمنية (Past Simple & Present Perfect).\n* **الوحدة الثانية:** قراءة القصة والكلمات الجديدة.\n\n> يرجى التركيز على حل الاختبارات التقييمية المرفقة.\n\n***تحديث هام:** تم إضافة مراجعات إضافية في قسم الفيديوهات.*",
+    "videos": [ 
+        { "title": "مراجعة الوحدات 1 و 2 و 3", "embedUrl": "https://www.youtube.com/embed/5_J4f8qV7_Y" }
+    ],
+    "quizzes": [ 
+        { "name": "اختبار الوحدة الأولى (جرامر)", "url": "https://forms.gle/english_quiz_1" }
+    ],
+    "downloads": [ 
+        { "name": "ملزمة شرح القواعد كاملة (PDF)", "url": "[LINK_TO_ENGLISH_MEMO_1]" },
+        { "name": "مراجعة نهائية للوحدات (PDF)", "url": "https://example.com/english/review.pdf" }
+    ]
+  },
+  {
+    "id": "sec_arabic",
+    "title": "قسم العربي",
+    "content": "**مذكرة النحو والبلاغة لقسم السمو**\n\n-   **النحو:** شرح كامل لـ `المشتقات` و `الأساليب`.\n-   **البلاغة:** التشبيه والاستعارة (أنواعها وأمثلة).\n\nهذا المحتوى الأساسي للترم الأول.",
+    "videos": [
+        { "title": "مراجعة النحو والأساليب كاملة", "embedUrl": "https://www.youtube.com/embed/x-q3p9sA6B8" }
+    ],
+    "quizzes": [
+        { "name": "اختبار قواعد النحو الشامل", "url": "https://forms.gle/arabic_quiz_1" }
+    ],
+    "downloads": [ 
+        { "name": "مذكرة النحو والبلاغة PDF", "url": "https://example.com/arabic/memo.pdf" }
+    ]
+  },
+  {
+    "id": "sec_math",
+    "title": "قسم رياضيات",
+    "content": "مذكرة الجبر والهندسة. هذا المحتوى للعرض المباشر.",
+    "videos": [
+        { "title": "الدرس الأول: المجموعات الأساسية للأعداد", "embedUrl": "https://www.youtube.com/embed/tQIYLZmQmZw" }
+    ],
+    "quizzes": [
+        { "name": "اختبار الجبر التفاضلي", "url": "https://forms.gle/math_quiz_1" }
+    ],
+    "downloads": [ 
+        { "name": "ملزمة الجبر والهندسة (مرفق)", "url": "[LINK_TO_MATH_MEMO_1]" }
+    ]
+  },
+  {
+    "id": "sec_science",
+    "title": "قسم علوم متكاملة",
+    "content": "**مذكرة علوم متكاملة (أحياء، كيمياء، فيزياء)**\n\n-   **الأحياء:** الخلية وعمليات الأيض.\n-   **الفيزياء:** الحركة والقوة.\n-   **الكيمياء:** التفاعلات الكيميائية الأساسية.\n\n> هذا القسم يغطي المحاور الأساسية المطلوبة.",
+    "videos": [
+        { "title": "مقدمة شاملة في العلوم", "embedUrl": "https://www.youtube.com/embed/generic_science_video" }
+    ],
+    "quizzes": [
+        { "name": "اختبار تقييمي في العلوم", "url": "[LINK_TO_SCIENCE_QUIZ_1]" }
+    ],
+    "downloads": [ 
+        { "name": "ملزمة العلوم الشاملة (PDF)", "url": "[LINK_TO_SCIENCE_MEMO_1]" }
+    ]
+  },
+  {
+    "id": "sec_history",
+    "title": "قسم التاريخ",
+    "content": "**مذكرة التاريخ الحديث والمعاصر**\n\n-   **الوحدة الأولى:** الحملة الفرنسية على مصر.\n-   **الوحدة الثانية:** ثورة يوليو وتأسيس الجمهورية.\n\n***يرجى الانتباه:** تم تحديث الخرائط الزمنية في المذكرة.*",
+    "videos": [
+        { "title": "شرح تاريخ مصر الحديث", "embedUrl": "https://www.youtube.com/embed/generic_history_video" }
+    ],
+    "quizzes": [
+        { "name": "اختبار أحداث تاريخية", "url": "[LINK_TO_HISTORY_QUIZ_1]" }
+    ],
+    "downloads": [ 
+        { "name": "ملزمة التاريخ (PDF)", "url": "[LINK_TO_HISTORY_MEMO_1]" }
+    ]
+  },
+  {
+    "id": "sec_french",
+    "title": "قسم الفرنساوي",
+    "content": "**مذكرة اللغة الفرنسية (المستوى الأول)**\n\n-   **الدرس الأول:** أساسيات النطق والتحيات.\n-   **الدرس الثاني:** أدوات التعريف والنكرة والصفات.\n\n> يحتوي هذا القسم على تمارين صوتية لتقوية النطق.",
+    "videos": [
+        { "title": "شرح قواعد اللغة الفرنسية الأساسية", "embedUrl": "https://www.youtube.com/embed/generic_french_video" }
+    ],
+    "quizzes": [
+        { "name": "اختبار المفردات والقواعد الفرنسية", "url": "[LINK_TO_FRENCH_QUIZ_1]" }
+    ],
+    "downloads": [ 
+        { "name": "ملزمة الفرنساوي والقواعد (PDF)", "url": "[LINK_TO_FRENCH_MEMO_1]" }
+    ]
+  }
+]
